@@ -1,0 +1,9 @@
+node_modules/
+release/
+*.log
+*-preview.png
+dashboard-*.png
+settings-*.png
+portable-smoke.png
+.DS_Store
+Thumbs.db
