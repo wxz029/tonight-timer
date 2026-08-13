@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'" />
+    <title>今晚还有多久</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main id="app" class="widget" data-theme="dark">
+      <section id="dashboard" class="dashboard">
+        <header id="dragRegion" class="titlebar drag-region">
+          <div class="brand">
+            <span class="moon" aria-hidden="true"></span>
+            <span id="brandLabel">今晚还有多久</span>
+          </div>
+          <div class="window-actions">
+            <button id="settingsButton" class="icon-button no-drag" type="button" title="设置" aria-label="打开设置">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 8.7a3.3 3.3 0 1 0 0 6.6 3.3 3.3 0 0 0 0-6.6Zm9 3.3-2.1-1.2c.1-.5 0-1.1-.1-1.6l1.5-1.9-2-2-1.9 1.5c-.5-.2-1-.4-1.6-.5L14.5 4h-2.9l-.4 2.3c-.5.1-1.1.3-1.6.5L7.7 5.3l-2 2 1.5 1.9c-.2.5-.2 1-.1 1.6L5 12l1.2 2.6c.5 0 1 .1 1.5.3l.4 2.4 2.8.7 1-2.1h1.7l1 2.1 2.8-.7.4-2.4c.5-.2 1-.3 1.5-.3L21 12Z"/></svg>
+            </button>
+            <button id="hideButton" class="icon-button no-drag" type="button" title="隐藏到托盘" aria-label="隐藏到托盘">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 11h12v2H6z"/></svg>
+            </button>
+          </div>
+        </header>
+
+        <div class="time-grid">
+          <article class="time-card sleep-card">
+            <div class="card-label"><span class="label-dot"></span><span id="sleepLabel">距离睡觉</span></div>
+            <div class="value-row"><strong id="sleepValue">--</strong><span id="sleepUnit">h</span></div>
+          </article>
+          <article id="studyCard" class="time-card study-card">
+            <div class="card-label"><span class="label-dot"></span><span id="studyLabel">还可以学习</span></div>
+            <div class="value-row"><strong id="studyValue">--</strong><span id="studyUnit">h</span></div>
+          </article>
+        </div>
+
+        <div class="status-row">
+          <div class="bedtime-chip">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 2v2H5a2 2 0 0 0-2 2v14h18V6a2 2 0 0 0-2-2h-2V2h-2v2H9V2H7Zm12 8H5V8h14v2Zm-7 3v4H8v-4h4Z"/></svg>
+            <span id="bedtimeLabel">睡觉时间：--</span>
+          </div>
+          <span id="currentTime" class="current-time">--:--</span>
+        </div>
+        <p id="statusMessage" class="status-message">保持节奏，今晚也会很充实。</p>
+      </section>
+
+      <section id="settingsPanel" class="settings-panel" hidden>
+        <header class="settings-header drag-region">
+          <button id="backButton" class="back-button no-drag" type="button" aria-label="返回">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m15.4 5.4-1.4-1.4-8 8 8 8 1.4-1.4-6.6-6.6 6.6-6.6Z"/></svg>
+          </button>
+          <div><h1 id="settingsTitle">设置</h1><p id="settingsSubtitle">修改后自动保存</p></div>
+        </header>
+
+        <div class="settings-scroll">
+          <div class="setting-group">
+            <h2 id="sleepPlanHeading">睡觉计划</h2>
+            <label class="setting-row vertical">
+              <span id="bedTimeSettingLabel">睡觉时间</span>
+              <input id="bedTimeInput" class="time-input" type="time" value="01:00" />
+            </label>
+            <label class="setting-row vertical">
+              <span id="dayModeSettingLabel">日期归属</span>
+              <select id="dayModeInput">
+                <option id="dayModeAutoOption" value="auto">自动判断</option>
+                <option id="dayModeTodayOption" value="today">今天</option>
+                <option id="dayModeTomorrowOption" value="tomorrow">次日</option>
+              </select>
+            </label>
+            <div class="setting-row vertical">
+              <span id="displayUnitSettingLabel">显示单位</span>
+              <div class="segmented" role="radiogroup" aria-label="显示单位">
+                <button id="hoursUnitButton" type="button" data-unit="hours">小时</button>
+                <button id="minutesUnitButton" type="button" data-unit="minutes">分钟</button>
+              </div>
+            </div>
+            <div class="setting-row vertical">
+              <span id="bufferSettingLabel">睡前预留时间</span>
+              <div class="buffer-inputs">
+                <label><input id="bufferHoursInput" type="number" min="0" max="12" step="1" /> <span id="bufferHoursLabel">小时</span></label>
+                <label>
+                  <select id="bufferMinutesInput">
+                    <option value="0">0</option><option value="5">5</option><option value="10">10</option>
+                    <option value="15">15</option><option value="20">20</option><option value="25">25</option>
+                    <option value="30">30</option><option value="35">35</option><option value="40">40</option>
+                    <option value="45">45</option><option value="50">50</option><option value="55">55</option>
+                  </select> <span id="bufferMinutesLabel">分钟</span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div class="setting-group">
+            <h2 id="desktopBehaviorHeading">桌面行为</h2>
+            <label class="toggle-row"><span><strong id="alwaysOnTopLabel">始终置顶</strong><small id="alwaysOnTopDescription">让小组件显示在其他窗口上方</small></span><input id="alwaysOnTopInput" type="checkbox" /><i></i></label>
+            <label class="toggle-row"><span><strong id="lockPositionLabel">锁定位置</strong><small id="lockPositionDescription">防止不小心拖动小组件</small></span><input id="lockPositionInput" type="checkbox" /><i></i></label>
+            <label class="toggle-row"><span><strong id="autoLaunchLabel">开机自动启动</strong><small id="autoLaunchDescription">登录 Windows 后自动显示</small></span><input id="autoLaunchInput" type="checkbox" /><i></i></label>
+          </div>
+
+          <div class="setting-group">
+            <h2 id="appearanceHeading">外观</h2>
+            <label class="setting-row"><span id="themeSettingLabel">主题</span>
+              <select id="themeInput">
+                <option id="themeDarkOption" value="dark">深色</option>
+                <option id="themeLightOption" value="light">浅色</option>
+                <option id="themeSystemOption" value="system">跟随系统</option>
+              </select>
+            </label>
+            <label class="setting-row"><span id="languageSettingLabel">语言</span>
+              <select id="languageInput">
+                <option id="languageChineseOption" value="zh-CN">中文</option>
+                <option id="languageEnglishOption" value="en">English</option>
+              </select>
+            </label>
+          </div>
+
+          <button id="quitButton" class="quit-button" type="button">退出程序</button>
+          <p id="versionLabel" class="version-label">今晚还有多久</p>
+        </div>
+        <div id="saveToast" class="save-toast" aria-live="polite">已保存</div>
+      </section>
+    </main>
+
+    <script src="time.js"></script>
+    <script src="renderer.js"></script>
+  </body>
+</html>
